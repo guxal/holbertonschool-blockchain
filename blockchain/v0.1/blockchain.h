@@ -17,6 +17,8 @@
 #define GENESIS_TIMESTAMP 1537578000
 #define GENESIS_DATA_LEN 16
 
+#define MIN(x, y) ((x) < (y) ? (x) : (y))
+
 /**
  * struct blockchain_s - Blockchain structure
  *
@@ -103,4 +105,6 @@ typedef struct hblk_file_s
 #define UNUSED(x) (void)(x)
 
 blockchain_t *blockchain_create(void);
+block_t *block_create(block_t const *prev, int8_t const *data,
+	uint32_t data_len);
 #endif /* __BLOCKCHAIN_H_ */

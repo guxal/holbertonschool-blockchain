@@ -10,7 +10,12 @@
 #include <time.h>
 #include <unistd.h>
 #include "../../crypto/hblk_crypto.h"
+#include "provided/endianness.h"
 
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #define GENESIS_HASH "\xc5\x2c\x26\xc8\xb5\x46\x16\x39\x63\x5d\x8e\xdf\x2a\x97\xd4\x8d\x0c\x8e\x00\x09\xc8\x17\xf2\xb1\xd3\xd7\xff\x2f\x04\x51\x58\x03"
 #define GENESIS_DATA "Holberton School"
@@ -18,6 +23,9 @@
 #define GENESIS_DATA_LEN 16
 
 #define MIN(x, y) ((x) < (y) ? (x) : (y))
+
+#define HBLK_MAGIC "HBLK"
+#define HBLK_VERSION "0.1"
 
 /**
  * struct blockchain_s - Blockchain structure
@@ -111,4 +119,5 @@ void block_destroy(block_t *block);
 void blockchain_destroy(blockchain_t *blockchain);
 uint8_t *block_hash(block_t const *block,
 	uint8_t hash_buf[SHA256_DIGEST_LENGTH]);
+int blockchain_serialize(blockchain_t const *blockchain, char const *path);
 #endif /* __BLOCKCHAIN_H_ */

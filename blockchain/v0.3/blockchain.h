@@ -112,8 +112,6 @@ typedef struct hblk_file_s
 } hblk_file_t;
 
 #define UNUSED(x) (void)(x)
-#define BLOCK_GENERATION_INTERVAL 1
-#define DIFFICULTY_ADJUSTMENT_INTERVAL 5
 
 blockchain_t *blockchain_create(void);
 block_t *block_create(block_t const *prev, int8_t const *data,
@@ -125,8 +123,4 @@ uint8_t *block_hash(block_t const *block,
 int blockchain_serialize(blockchain_t const *blockchain, char const *path);
 blockchain_t *blockchain_deserialize(char const *path);
 int block_is_valid(block_t const *block, block_t const *prev_block);
-int hash_matches_difficulty(uint8_t const hash[SHA256_DIGEST_LENGTH],
-	uint32_t difficulty);
-void block_mine(block_t *block);
-uint32_t blockchain_difficulty(blockchain_t const *blockchain);
 #endif /* __BLOCKCHAIN_H_ */

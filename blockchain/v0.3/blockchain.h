@@ -11,6 +11,7 @@
 #include <unistd.h>
 #include "../../crypto/hblk_crypto.h"
 #include "provided/endianness.h"
+#include "transaction.h"
 
 #include <unistd.h>
 #include <sys/types.h>

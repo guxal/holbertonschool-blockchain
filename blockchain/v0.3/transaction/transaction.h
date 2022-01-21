@@ -4,6 +4,27 @@
 #include "blockchain.h"
 
 #define TX_OUT_HASH_LEN (sizeof(uint32_t) + EC_PUB_LEN)
+#define TX_IN_HASH_LEN SHA256_DIGEST_LENGTH
+#define TX_OUT_HASH_VAL_LEN SHA256_DIGEST_LENGTH
+#define TX_IN_HASH_VAL_LEN 3 * SHA256_DIGEST_LENGTH
+
+
+
+/**
+ * struct transaction_s - Transaction structure
+ *
+ * @id:      Transaction ID. A hash of all the inputs and outputs.
+ *           Prevents further alteration of the transaction.
+ * @inputs:  List of `tx_in_t *`. Transaction inputs
+ * @outputs: List of `tx_out_t *`. Transaction outputs
+ */
+typedef struct transaction_s
+{
+	uint8_t     id[SHA256_DIGEST_LENGTH];
+	llist_t     *inputs;
+	llist_t     *outputs;
+} transaction_t;
+
 /**
  * struct tx_out_s - Transaction output
  *
@@ -65,4 +86,7 @@ unspent_tx_out_t
 										tx_out_t const *out);
 
 tx_in_t *tx_in_create(unspent_tx_out_t const *unspent);
+
+uint8_t *transaction_hash(transaction_t const *transaction,
+						  uint8_t hash_buf[SHA256_DIGEST_LENGTH]);
 #endif
